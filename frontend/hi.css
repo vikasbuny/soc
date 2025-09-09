@@ -1,0 +1,120 @@
+:root {
+    --primary: #6C63FF;
+    --accent: #FFC107;
+    --bg: #F3F4F6;
+    --card-bg: #FFFFFF;
+    --text: #333333;
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+header {
+    background: var(--primary);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 2rem 0;
+    box-shadow: var(--shadow);
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+header p {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+nav {
+    margin-top: 1rem;
+}
+
+nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--accent);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.profile, .about, .contact {
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.skill-card {
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+    border-radius: 8px;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-weight: 700;
+    color: var(--primary);
+    transition: transform 0.3s, background 0.3s, color 0.3s;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    background: var(--primary);
+    color: #FFFFFF;
+}
+
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
