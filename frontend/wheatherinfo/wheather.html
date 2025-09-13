@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Info</title>
+    <link rel="stylesheet" type="text/css" href="weather.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2em;
+        }
+        #weather {
+            margin-top: 1em;
+            padding: 1em;
+            border: 1px solid #750808;
+            width: 300px;
+        }
+        input, button {
+            padding: 0.5em;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weather Information</h1>
+    <input type="text" id="cityInput" placeholder="Enter city name (e.g., Delhi)">
+    <button id="fetchWeatherBtn">Get Weather</button>
+    <div id="weather"></div>
+
+    <script>
+        const cityCoords = {
+            "bangalore": { lat: 12.97, lon: 77.59 },
+            "delhi": { lat: 28.61, lon: 77.20 },
+            "mumbai": { lat: 19.07, lon: 72.87 },
+            "london": { lat: 51.51, lon: -0.13 },
+            "new york": { lat: 40.71, lon: -74.01 }
+        };
+
+        const fetchWeatherBtn = document.getElementById("fetchWeatherBtn");
+
+        fetchWeatherBtn.addEventListener("click", () => {
+            let cityInput = document.getElementById("cityInput");
+            let weatherDiv = document.getElementById("weather");
+
+            let city = cityInput.value.trim().toLowerCase();
+
+            if (!cityCoords[city]) {
+                weatherDiv.innerHTML = "⚠️ City not in list!";
+                return;
+            }
+
+            let coords = cityCoords[city];
+            let url = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current_weather=true`;
+
+            weatherDiv.innerHTML = "Loading weather data...";
+            fetchWeatherBtn.disabled = true;
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    fetchWeatherBtn.disabled = false;
+                    if (data.current_weather) {
+                        const timeFormatted = new Date(data.current_weather.time).toLocaleString();
+                        weatherDiv.innerHTML = `
+                            <h3>Weather in ${city.charAt(0).toUpperCase() + city.slice(1)}</h3>
+                            <p>🌡 Temp: ${data.current_weather.temperature}°C</p>
+                            <p>💨 Wind: ${data.current_weather.windspeed} km/h</p>
+                            <p>⏱ Time: ${timeFormatted}</p>
+                        `;
+                    } else {
+                        weatherDiv.innerHTML = "⚠️ No data available.";
+                    }
+                })
+                .catch(error => {
+                    fetchWeatherBtn.disabled = false;
+                    console.error(error);
+                    weatherDiv.innerHTML = "⚠️ Error fetching weather.";
+                });
+        });
+    </script>
+</body>
+</html>
